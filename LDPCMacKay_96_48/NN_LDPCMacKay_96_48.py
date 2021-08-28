@@ -16,6 +16,8 @@ r_code, n_code = np.shape(H)
 k_code = n_code - r_code
 code_rate = 1.0*k_code/n_code
 
+################## construct masks ###################
+
 degree_check = np.sum(H,axis=1)
 max_degree_check = np.max(degree_check)
 max_degree_check  = max_degree_check.astype('int32')
@@ -48,6 +50,8 @@ batch_in_epoch = 1000
 batches_for_val = np.array([10,20,30,50,150,3500])*300/200
 batches_for_val = batches_for_val.astype('int32')
 #batches_for_val = np.array([10,25,50,100,250,2000]) 
+
+######################### construct the Network #####################
 
 var_dict = {}
 check_dict = {}
@@ -123,7 +127,7 @@ saver = tf.train.Saver()
 loss_v = np.zeros([1, 1], dtype=np.float32)
 ber_val = np.zeros([6], dtype=np.float32)
 BER = np.zeros([1,6], dtype=np.float32)
-
+########### Train the Network ###########
 with tf.Session() as sess:    
     sess.run(tf.initialize_all_variables())
     y_train = np.zeros([batch_size,n_code], dtype=np.float32)
